@@ -90,7 +90,7 @@ export default function App() {
           >
             <div className="w-64 h-64 md:w-80 md:h-80 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
               <img 
-                src="/assets/img/headshot.jpeg" 
+                src="/PortfolioWebsite/assets/img/headshot.jpeg" 
                 alt="Corporate Headshot" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

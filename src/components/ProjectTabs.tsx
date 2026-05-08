@@ -21,7 +21,7 @@ const projects: Project[] = [
     tags: ['TypeScript', 'JavaScript', 'HTML/CSS', 'MongoDB', 'Vite', 'Node.js', 'Firebase Auth', 'Cloudflare', 'UI/UX'],
     github: 'https://github.com/SpencerVaughan96498A/ShinyLivingDexTracker',
     demo: 'https://spencervaughan96498a.github.io/ShinyLivingDexTracker/',
-    image: "/assets/img/ShinyLivingDexTracker.png" ,
+    image: "/PortfolioWebsite/assets/img/ShinyLivingDexTracker.png" ,
     icon: Code2,
   },
   {
@@ -31,7 +31,7 @@ const projects: Project[] = [
     tags: ['C++', 'Rust', 'Embedded Systems', 'Sensor Fusion', 'Control Systems', 'Motion Control', 'Path Planning', 'Hardware-Software Integration', 'Project Management', 'Technical Documentation', 'Visualisation'],
     github: 'https://github.com/EMU5-Robotics/lemon',
     demo: 'https://drive.google.com/file/d/1GU2v2WG3blK76SLil9Ia8pGkSQq2gRhi/view?usp=sharing',
-    image: "/assets/img/ProjectLemon2.png",
+    image: "/PortfolioWebsite/assets/img/ProjectLemon2.png",
     icon: Layers,
   },
   {
