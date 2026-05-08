@@ -11,16 +11,6 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(), 
       tailwindcss(),
-      {
-        name: 'html-transform',
-        transformIndexHtml(html) {
-          return html.replace(
-            '<head>',
-            `<head>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline';">`
-          );
-        },
-      },
     ],
     base: '/PortfolioWebsite/',
     define: {
