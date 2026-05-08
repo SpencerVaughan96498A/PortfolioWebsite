@@ -214,7 +214,7 @@ export default function App() {
               <ResumeViewer 
                 content={resumeContent} 
                 url={resumeUrl} 
-                pdfUrl="/assets/Resume-2026/SV-LaTeX-Resume-2026.pdf"
+                pdfUrl="/PortfolioWebsite/assets/Resume-2026/SV-LaTeX-Resume-2026.pdf"
               />
             </div>
           </div>
