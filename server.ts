@@ -1,13 +1,16 @@
 import express from "express";
-import { createServer as createViteServer } from "vite";
+import { createServer as createViteServer, loadEnv } from "vite";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import dotenv from "dotenv";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 async function startServer() {
   const app = express();
@@ -20,8 +23,12 @@ async function startServer() {
     const { resumeContent, question, history } = req.body;
     const apiKey = process.env.GEMINI_API_KEY;
 
-    if (!apiKey) {
-      return res.status(500).json({ error: "API Key not configured" });
+    // Handle missing or placeholder keys gracefully
+    if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY" || apiKey.startsWith("YOUR_")) {
+      console.warn("AI Chat requested but no valid API key found. Returning demo response.");
+      return res.json({ 
+        text: "The AI Assistant is currently in 'Demo Mode' because a valid Gemini API key hasn't been configured in the .env file. Once you add a real key, I'll be able to answer specific questions about your resume!" 
+      });
     }
 
     const systemInstruction = `
@@ -51,11 +58,18 @@ async function startServer() {
     ];
 
     try {
+      console.log(`[AI Chat] Sending request to Gemini...`);
       const response = await fetch(geminiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contents })
       });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Gemini API Error:", response.status, errorData);
+        return res.status(response.status).json({ error: "Gemini API returned an error" });
+      }
 
       const data = await response.json();
       const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -69,9 +83,19 @@ async function startServer() {
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
+    const env = loadEnv("development", __dirname, "");
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      configFile: false, 
+      root: __dirname,
+      server: { 
+        middlewareMode: true,
+        hmr: process.env.DISABLE_HMR !== 'true',
+      },
       appType: "spa",
+      plugins: [react(), tailwindcss()],
+      define: {
+        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      },
     });
     app.use(vite.middlewares);
   } else {

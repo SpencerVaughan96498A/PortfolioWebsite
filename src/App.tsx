@@ -1,28 +1,30 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Github, Linkedin, Mail, Download, Sparkles, Code2, Briefcase, User as UserIcon, Users } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, Sparkles, Code2, Briefcase, User as UserIcon, Users, Trophy, Earth, Wrench } from 'lucide-react';
 import ProjectTabs from './components/ProjectTabs';
 import AIChat from './components/AIChat';
 import ResumeViewer from './components/ResumeViewer';
 import TeamRepos from './components/TeamRepos';
 import CareerTimeline from './components/CareerTimeline';
-import { fetchResumeFromGit } from './services/resumeService';
+import RoboticsGallery from './components/RoboticsGallery';
+import CredentialBadge from './components/CredentialBadge';
+import { Camera, Award } from 'lucide-react';
 
-const DEFAULT_RESUME_URL = "https://github.com/SpencerVaughan96498A/Resume-2026/blob/main/SV-LaTeX-Resume-2026.tex";
+const resumeUrl = "https://github.com/SpencerVaughan96498A/Resume-2026/blob/main/SV-LaTeX-Resume-2026.tex";
 
 export default function App() {
   const [resumeContent, setResumeContent] = React.useState<string>("");
-  const [resumeUrl, setResumeUrl] = React.useState(DEFAULT_RESUME_URL);
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   React.useEffect(() => {
-    const loadResume = async () => {
-      const content = await fetchResumeFromGit(resumeUrl);
-      setResumeContent(content);
-      setIsLoaded(true);
-    };
-    loadResume();
-  }, [resumeUrl]);
+    fetch('/assets/Resume-2026/SV-LaTeX-Resume-2026.tex')
+      .then(res => res.text())
+      .then(text => {
+        setResumeContent(text);
+        setIsLoaded(true);
+      })
+      .catch(err => console.error("Failed to load resume:", err));
+  }, []);
 
   return (
     <div className="min-h-screen bg-bg selection:bg-accent/20">
@@ -30,8 +32,8 @@ export default function App() {
       <nav className="fixed top-0 w-full z-50 glass border-b border-black/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">P</div>
-            <span className="font-bold tracking-tight">ProFolio AI</span>
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">SV</div>
+            <span className="font-bold tracking-tight">Spencer Vaughan</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-primary/60">
             <a href="#projects" className="hover:text-primary transition-colors">Projects</a>
@@ -60,19 +62,18 @@ export default function App() {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-6 uppercase tracking-widest">
               <Sparkles size={14} />
-              Robotics Engineer & Team Lead
+              Graduate Software Engineer & Project Manager
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-primary">
-              Engineering <br />
-              <span className="text-accent italic serif">Precision Motion.</span>
+              Spencer Vaughan <br />
+              <span className="text-accent italic serif">2026 Portfolio</span>
             </h1>
             <p className="text-lg text-primary/60 max-w-xl mb-10 leading-relaxed">
-              Specializing in control theory, motion profiling, and autonomous systems for competitive robotics. 
-              Leading high-performance teams to build complex hardware-software integrations.
+              Computing & Software Systems graduate and incoming Master of Software Engineering (AI) student. A dedicated problem-solver with over a decade of experience in leadership, robotics, and autonomous systems programming.
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#projects" className="bg-primary text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform shadow-xl shadow-black/10">
-                View Systems
+                View Projects
               </a>
               <a href="#ai-assistant" className="bg-white border border-black/10 text-primary px-8 py-4 rounded-2xl font-bold hover:bg-black/5 transition-colors">
                 Ask AI Assistant
@@ -89,7 +90,7 @@ export default function App() {
           >
             <div className="w-64 h-64 md:w-80 md:h-80 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
               <img 
-                src="https://picsum.photos/seed/roboticist/800/800" 
+                src="/assets/img/headshot.jpeg" 
                 alt="Corporate Headshot" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -110,31 +111,11 @@ export default function App() {
         </div>
       </header>
 
-      {/* Stats / Quick Info */}
-      <section className="py-12 border-y border-black/5 bg-white/50">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { label: 'Robots Built', value: '12', icon: Briefcase },
-            { label: 'Lines of Control Code', value: '50k+', icon: Code2 },
-            { label: 'Team Members Led', value: '45', icon: UserIcon },
-            { label: 'Competition Awards', value: '8', icon: Sparkles },
-          ].map((stat, i) => (
-            <div key={i} className="flex flex-col items-center text-center">
-              <div className="w-10 h-10 rounded-xl bg-black/5 flex items-center justify-center text-primary/40 mb-3">
-                <stat.icon size={20} />
-              </div>
-              <div className="text-2xl font-bold text-primary">{stat.value}</div>
-              <div className="text-xs text-primary/40 uppercase tracking-widest font-medium">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Projects Section */}
       <section id="projects" className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Featured Systems</h2>
+            <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
             <div className="h-1 w-20 bg-accent mx-auto rounded-full"></div>
           </div>
           <ProjectTabs />
@@ -147,13 +128,32 @@ export default function App() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Career Journey</h2>
             <p className="text-primary/60 max-w-2xl mx-auto leading-relaxed">
-              A timeline of my professional experience, education, and key milestones in the robotics industry.
+              A timeline of my professional experience, education, and key milestones across software engineering and robotics.
             </p>
             <div className="h-1 w-20 bg-accent mx-auto rounded-full mt-4"></div>
           </div>
           <CareerTimeline />
         </div>
       </section>
+
+      {/* Robotics Journey Gallery */}
+      <section className="py-24 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
+                <Camera className="text-accent" />
+                Robotics Journey Gallery
+              </h2>
+              <p className="text-primary/60 leading-relaxed">
+                A visual journey through my robotics career, from founding my first team in high school to leading national championship-winning university squads.
+              </p>
+            </div>
+          </div>
+          <RoboticsGallery />
+        </div>
+      </section>
+
 
       {/* Team Leadership Section */}
       <section className="py-24 px-6 bg-white">
@@ -162,23 +162,32 @@ export default function App() {
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
                 <Users className="text-accent" />
-                Team Leadership & Oversight
+                Team Leadership & Project Management
               </h2>
               <p className="text-primary/60 leading-relaxed">
-                As a Team Lead, I oversaw the technical development and project management of these core repositories. 
-                While I didn't write every line of code, I managed the architecture, code reviews, and cross-team integration.
+                After starting my own competition team and seeing success at my local high school, I decided to start a competitive robotics team at the University of Melbourne. As Founding President and Team Lead of EMU5 Robotics, I orchestrated the collaboration between software, electrical, and mechanical teams, while overseeing a six-figure budget and the integration between projects.
               </p>
             </div>
             <div className="flex gap-4">
               <div className="text-right">
-                <div className="text-2xl font-bold">3+ Years</div>
+                <div className="text-2xl font-bold">10+ Years</div>
                 <div className="text-[10px] text-primary/40 uppercase tracking-widest">Leadership Exp.</div>
               </div>
             </div>
           </div>
           <TeamRepos />
+        {/* Credential Highlight */}
+          <div className="mt-16 max-w-3xl mx-auto">
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <Award className="text-accent" />
+              Verified Leadership Credentials
+            </h3>
+            <CredentialBadge />
+          </div>
         </div>
       </section>
+
+      
 
       {/* Resume Section */}
       <section id="resume" className="py-24 px-6 bg-white">
@@ -188,16 +197,25 @@ export default function App() {
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h2 className="text-3xl font-bold">Technical Resume</h2>
-                <button className="flex items-center gap-2 text-sm font-bold text-accent hover:underline">
+                <a 
+                  href="/assets/Resume-2026/SV-LaTeX-Resume-2026.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm font-bold text-accent hover:underline"
+                >
                   <Download size={16} />
                   Download PDF
-                </button>
+                </a>
               </div>
               <p className="text-primary/60">
                 My resume is maintained in LaTeX and synced directly from GitHub. 
                 This ensures all technical details are always up-to-date.
               </p>
-              <ResumeViewer content={resumeContent} url={resumeUrl} />
+              <ResumeViewer 
+                content={resumeContent} 
+                url={resumeUrl} 
+                pdfUrl="/assets/Resume-2026/SV-LaTeX-Resume-2026.pdf"
+              />
             </div>
           </div>
         </div>
@@ -210,8 +228,8 @@ export default function App() {
       <footer className="py-12 px-6 border-t border-black/5 bg-white">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">P</div>
-            <span className="font-bold tracking-tight">ProFolio AI</span>
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">SV</div>
+            <span className="font-bold tracking-tight">Spencer Vaughan</span>
           </div>
           <div className="flex gap-6 text-primary/40">
             <a href="#" className="hover:text-primary transition-colors"><Github size={20} /></a>
@@ -219,7 +237,6 @@ export default function App() {
             <a href="#" className="hover:text-primary transition-colors"><Mail size={20} /></a>
           </div>
           <p className="text-sm text-primary/40 font-mono">
-            &copy; {new Date().getFullYear()} ProFolio AI. Built with Gemini 3.1.
           </p>
         </div>
       </footer>

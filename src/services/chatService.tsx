@@ -1,6 +1,8 @@
 export async function askAboutResume(resumeContent: string, question: string, history: any[]) {
   try {
-    const response = await fetch("/api/chat", {
+    // In the browser, relative URLs are fine. In Node.js (SSR/Tests), we need absolute URLs.
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ resumeContent, question, history }),

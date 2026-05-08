@@ -1,0 +1,13 @@
+Current To Do List:
+- Link 'Contact Me' button to something
+- Update photo on main page
+- maybe visual rehaul?
+- add website portfolio project to git
+- link website portfolio as a project with public git repo
+- Integrate Gemini AI Chat Bot (pay for service and get API Key)
+- SWEN degree dates are over 2 lines
+- Robotics Journey Gallery photo icon on titles is not consistently sized, have this not shrink
+- Check if I can include other verified credentials like my degree?
+- See whether unimelb got back to me about any other Melbourne Plus Credentials as more will beef this website up even more
+- Buttons in footer are not linked to anything
+- Could add an epilogue robot gallery of continuing to volunteer.

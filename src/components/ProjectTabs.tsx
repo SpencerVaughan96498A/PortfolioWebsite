@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Github, Code2, Layers } from 'lucide-react';
+import { ExternalLink, Github, Code2, Layers, ShieldCheck, Briefcase, LucideIcon, Construction } from 'lucide-react';
 
 interface Project {
   id: string;
@@ -10,32 +10,45 @@ interface Project {
   github?: string;
   demo?: string;
   image: string;
+  icon: LucideIcon;
 }
 
 const projects: Project[] = [
   {
-    id: '1',
-    title: 'Motion Profiling & Path Following',
-    description: 'Developed a custom S-curve motion profiling library for holonomic drivetrains, implementing Pure Pursuit and Ramsete controllers for high-precision autonomous navigation.',
-    tags: ['C++', 'Control Theory', 'WPILib', 'Eigen'],
-    github: 'https://github.com',
-    image: 'https://picsum.photos/seed/robotics-path/800/400',
+    id: 'shiny-dex',
+    title: 'Shiny Living Dex Tracker',
+    description: 'A comprehensive tracking tool for Pokémon enthusiasts to track their Shiny Living Pokédex Progress. Features a clean UI for tracking progress across different generations and forms, linked to mongoDB to store and manage user data.',
+    tags: ['TypeScript', 'JavaScript', 'HTML/CSS', 'MongoDB', 'Vite', 'Node.js', 'Firebase Auth', 'Cloudflare', 'UI/UX'],
+    github: 'https://github.com/SpencerVaughan96498A/ShinyLivingDexTracker',
+    demo: 'https://spencervaughan96498a.github.io/ShinyLivingDexTracker/',
+    image: "/assets/img/ShinyLivingDexTracker.png" ,
+    icon: Code2,
   },
   {
-    id: '2',
-    title: 'PID Control Tuning Suite',
-    description: 'A real-time telemetry and visualization tool for tuning multi-stage PID loops on brushless motor controllers, reducing oscillation by 40% in high-load scenarios.',
-    tags: ['Java', 'NetworkTables', 'React', 'D3.js'],
-    github: 'https://github.com',
-    image: 'https://picsum.photos/seed/robotics-pid/800/400',
+    id: 'vex-lemon',
+    title: 'VURC 2023-2024 Season',
+    description: 'Documentation and repository for the 2023-2024 Vex U Robotics Competition season. Includes the 251-page Engineering Notebook documenting Mechanical, Electrical & Software work and providing information about the "Lemon" control system repository, visualisation in programming, path planning, and more.',
+    tags: ['C++', 'Rust', 'Embedded Systems', 'Sensor Fusion', 'Control Systems', 'Motion Control', 'Path Planning', 'Hardware-Software Integration', 'Project Management', 'Technical Documentation', 'Visualisation'],
+    github: 'https://github.com/EMU5-Robotics/lemon',
+    demo: 'https://drive.google.com/file/d/1GU2v2WG3blK76SLil9Ia8pGkSQq2gRhi/view?usp=sharing',
+    image: "/assets/img/ProjectLemon2.png",
+    icon: Layers,
   },
   {
-    id: '3',
-    title: 'Computer Vision Target Tracking',
-    description: 'Implemented a Raspberry Pi-based vision system using OpenCV to track field elements and calculate distance/angle offsets for automated scoring mechanisms.',
-    tags: ['Python', 'OpenCV', 'TensorFlow Lite', 'MQTT'],
-    github: 'https://github.com',
-    image: 'https://picsum.photos/seed/robotics-vision/800/400',
+    id: 'coming-soon-1',
+    title: 'TBC',
+    description: 'New project currently in development. Stay tuned for updates on technical implementation and system architecture.',
+    tags: ['Coming Soon'],
+    image: 'https://picsum.photos/seed/placeholder-1/800/400',
+    icon: Construction,
+  },
+  {
+    id: 'coming-soon-2',
+    title: 'TBC',
+    description: 'New project currently in development. Stay tuned for updates on technical implementation and system architecture.',
+    tags: ['Coming Soon'],
+    image: 'https://picsum.photos/seed/placeholder-2/800/400',
+    icon: Construction,
   },
 ];
 
@@ -59,7 +72,7 @@ export default function ProjectTabs() {
                   : 'hover:bg-black/5 text-primary/60'
               }`}
             >
-              <Layers size={18} />
+              <project.icon size={16} className="shrink-0" />
               <span className="font-medium">{project.title}</span>
             </button>
           ))}

@@ -1,45 +1,49 @@
 import React from 'react';
-import { Github, FolderGit2, Users, ArrowUpRight } from 'lucide-react';
+import { Github, BookOpen, Users, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
-interface Repo {
-  name: string;
+interface LeadershipItem {
+  title: string;
   description: string;
-  stars: string;
-  tech: string;
-  url: string;
+  role: string;
+  link: string;
+  icon: React.ReactNode;
+  tags: string[];
 }
 
-const teamRepos: Repo[] = [
+const leadershipItems: LeadershipItem[] = [
   {
-    name: "Robotics-Team-2024-Main",
-    description: "Full robot code for the 2024 competition season. Oversaw architecture and integration of 4 sub-teams.",
-    stars: "12",
-    tech: "Java / C++",
-    url: "https://github.com"
+    title: "EMU5 Robotics Organization",
+    description: "Founding President and Team Lead of the University of Melbourne's premier robotics society. Led 40+ members across interdisciplinary teams to 3 consecutive National Championships.",
+    role: "Founding President & Team Lead",
+    link: "https://github.com/EMU5-Robotics",
+    icon: <Github size={20} />,
+    tags: ["Leadership", "Project Management", "Robotics"]
   },
   {
-    name: "Autonomous-Navigation-Core",
-    description: "Core library for path planning and sensor fusion. Managed the development cycle and code reviews.",
-    stars: "8",
-    tech: "C++ / ROS",
-    url: "https://github.com"
+    title: "2023-2024 Engineering Notebook",
+    description: "A 251-page comprehensive master notebook documenting the entire engineering design process, problem-solving approaches, and competition progress. Heavily authored and overseen as Team Lead.",
+    role: "Lead Author & Overseer",
+    link: "https://drive.google.com/file/d/1GU2v2WG3blK76SLil9Ia8pGkSQq2gRhi/view?usp=sharing",
+    icon: <BookOpen size={20} />,
+    tags: ["Documentation", "Systems Thinking", "Design Process"]
   },
   {
-    name: "Scouting-App-v2",
-    description: "Data collection and analysis tool used during competitions to strategize against opponents.",
-    stars: "15",
-    tech: "React Native / Firebase",
-    url: "https://github.com"
+    title: "Project 'Lemon' Overseer",
+    description: "Managed the overall direction and cross-team communication for the 2023-2024 competition code. Ensured software team leads were aligned with mechanical and electrical requirements.",
+    role: "Project Manager / Overseer",
+    link: "https://github.com/EMU5-Robotics/lemon",
+    icon: <ShieldCheck size={20} />,
+    tags: ["C++", "Project Management", "Integration"]
   }
 ];
 
 export default function TeamRepos() {
   return (
     <div className="grid md:grid-cols-3 gap-6">
-      {teamRepos.map((repo, i) => (
+      {leadershipItems.map((item, i) => (
         <a 
           key={i} 
-          href={repo.url} 
+          href={item.link} 
           target="_blank" 
           rel="noopener noreferrer"
           className="group glass p-6 rounded-2xl hover:border-accent/30 transition-all duration-300 flex flex-col justify-between"
@@ -47,21 +51,24 @@ export default function TeamRepos() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="p-2 bg-black/5 rounded-lg text-primary/60 group-hover:text-accent transition-colors">
-                <FolderGit2 size={20} />
+                {item.icon}
               </div>
               <ArrowUpRight size={16} className="text-primary/20 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
             </div>
-            <h4 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">{repo.name}</h4>
+            <div className="mb-1">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-bold">{item.role}</span>
+            </div>
+            <h4 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">{item.title}</h4>
             <p className="text-sm text-primary/60 leading-relaxed mb-4">
-              {repo.description}
+              {item.description}
             </p>
           </div>
-          <div className="flex items-center justify-between pt-4 border-t border-black/5">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-primary/40">{repo.tech}</span>
-            <div className="flex items-center gap-1 text-[10px] font-mono text-primary/40">
-              <Github size={12} />
-              {repo.stars}
-            </div>
+          <div className="flex flex-wrap gap-2 pt-4 border-t border-black/5">
+            {item.tags.map(tag => (
+              <span key={tag} className="text-[9px] font-mono uppercase tracking-wider text-primary/40 bg-black/5 px-2 py-0.5 rounded">
+                {tag}
+              </span>
+            ))}
           </div>
         </a>
       ))}
